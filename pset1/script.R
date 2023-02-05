@@ -1,6 +1,5 @@
 # Minh Duong, ECON 453, pset 1
 
-
 # Packages Install && Import
 library(readxl)
 
@@ -9,7 +8,7 @@ rm(list = ls())
 
 # Relative directory
 # Put data to the data directory inside the project directory
-# setwd("data")
+setwd("data")
 getwd()
 
 # Problem 1
@@ -87,7 +86,7 @@ barplot(
   data = aggregated_data1, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2"),
-  main = "Averagr Score by Year and School", 
+  main = "Average Score by Year and School", 
   ylab = "Average Score",
   xlab = "School"
 )
@@ -107,7 +106,7 @@ barplot(
   beside = T,
   col = c("dodgerblue2", "firebrick2"),
   main = "Standard Deviation  by Year and School", 
-  ylab = "SD",
+  ylab = "Standard Deviation",
   xlab = "School"
 )
 
@@ -174,7 +173,6 @@ data2_summary = rbind(
   IQR(data2$education)
 )
 
-nrow(data2_summary)
 
 # Provide Row names
 rownames(data2_summary) <- c(
@@ -183,17 +181,17 @@ rownames(data2_summary) <- c(
   "Mode",
   
   # Medical Experience
-  "Medical Experience - Min",
-  "Medical Experience - Max",
-  "Medical Experience - Sample Mean",
-  "Medical Experience - Sample Variance",
-  "Medical Experience - sample standard deviation", 
-  "Medical Experience - coefficient of variation",
-  "Medical Experience - mean absolute deviation", 
-  "Medical Experience - Q1", 
-  "Medical Experience - median",
-  "Medical Experience - Q3",
-  "Medical Experience - IQR",
+  "Medical Expenses - Min",
+  "Medical Expenses - Max",
+  "Medical Expenses - Sample Mean",
+  "Medical Expenses - Sample Variance",
+  "Medical Expenses - sample standard deviation", 
+  "Medical Expenses - coefficient of variation",
+  "Medical Expenses - mean absolute deviation", 
+  "Medical Expenses - Q1", 
+  "Medical Expenses - median",
+  "Medical Expenses - Q3",
+  "Medical Expenses - IQR",
   
   # Income
   "Income - Min",
@@ -225,22 +223,79 @@ rownames(data2_summary) <- c(
 data2_summary
 
 # 2B
+# Outliers not in the range [Q1 - 1.5 * IQR, Q3 + 1.5 * IQR]
+
 IQR_med = quantile(data2$medicalexpn, 0.75) - quantile(data2$medicalexpn, 0.25)
+IQR_med
+
 # get the lower and higher bound
 low_med = quantile(data2$medicalexpn, 0.25) - 1.5 * IQR_med
 high_med = quantile(data2$medicalexpn, 0.75) + 1.5 * IQR_med
 
-# identify the (possible) outliers
+# identify the outliers
 
-# the value
+# Outlier value(s)
 data2$medicalexpn[
   which(data2$medicalexpn < low_med | data2$medicalexpn > high_med)
 ]
 
-# which observation
+# Outlier Record(s) (Observations(s))
 row.names(data2)[
   which(data2$medicalexpn < low_med | data2$medicalexpn > high_med)
 ]
 # => The outlier is the Value 62.231 of row 27
+
+# 2C
+aggregated_medicalexpn = aggregate(
+  data2$medicalexpn,
+  list(
+    Country = data2$country, 
+    Location = data2$location
+  ), 
+  FUN = function(x) c(
+    "Sample Mean" = mean(x), 
+    "Sample SD" = sd(x)
+  )
+)
+
+# Bar Chart Draw
+# Sample Mean Chart
+barplot(
+  x[,"Sample Mean"] ~ Country + Location,
+  data = aggregated_medicalexpn, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Average Medical Expenses",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
+# Standard Deviation Chart
+barplot(
+  x[,"Sample SD"] ~ Country + Location,
+  data = aggregated_medicalexpn, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Standard Deviation of Medical Expenses",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
 
 
