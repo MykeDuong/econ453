@@ -298,4 +298,118 @@ legend(
 )
 
 
+aggregated_income = aggregate(
+  data2$income,
+  list(
+    Country = data2$country, 
+    Location = data2$location
+  ), 
+  FUN = function(x) c(
+    "Sample Mean" = mean(x), 
+    "Sample SD" = sd(x)
+  )
+)
+
+# Bar Chart Draw
+# Sample Mean Chart
+barplot(
+  x[,"Sample Mean"] ~ Country + Location,
+  data = aggregated_income, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Average Income",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
+# Standard Deviation Chart
+barplot(
+  x[,"Sample SD"] ~ Country + Location,
+  data = aggregated_income, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Standard Deviation of Income",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
+
+aggregated_education = aggregate(
+  data2$education,
+  list(
+    Country = data2$country, 
+    Location = data2$location
+  ), 
+  FUN = function(x) c(
+    "Sample Mean" = mean(x), 
+    "Sample SD" = sd(x)
+  )
+)
+
+# Bar Chart Draw
+# Sample Mean Chart
+barplot(
+  x[,"Sample Mean"] ~ Country + Location,
+  data = aggregated_education, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Average Education",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
+# Standard Deviation Chart
+barplot(
+  x[,"Sample SD"] ~ Country + Location,
+  data = aggregated_education, 
+  beside = T, 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
+  main = "", 
+  ylab = "Standard Deviation of Education",
+  xlab = "Country"
+)
+
+legend(
+  "topleft", 
+  c("Canada", "Mexico", "USA"), 
+  pch = 15, 
+  bty = "n", 
+  col = c("dodgerblue2", "firebrick2", "darkgoldenrod1")
+)
+
+
+# 2E - Draw a scatter plot of medical expenses (on y-axis) and income (on x-axis).
+
+plot(medicalexpn ~ income,data = data2)
+
+plot(
+  data2$income, 
+  data2$medicalexpn,
+  "Income",
+  "Medical Expertise"
+)
 
