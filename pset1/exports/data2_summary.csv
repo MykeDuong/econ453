@@ -1,0 +1,34 @@
+"","Values"
+"Medical Expenses - Min",1
+"Medical Expenses - Max",62.231
+"Medical Expenses - Sample Mean",19.1875176470588
+"Medical Expenses - Sample Variance",201.741607776471
+"Medical Expenses - sample standard deviation",14.2035772880099
+"Medical Expenses - coefficient of variation",0.740250904221949
+"Medical Expenses - mean absolute deviation",11.6212791695502
+"Medical Expenses - Q1",8.208
+"Medical Expenses - median",16.351
+"Medical Expenses - Q3",26.822
+"Medical Expenses - IQR",18.614
+"Income - Min",4
+"Income - Max",99
+"Income - Sample Mean",37.4235294117647
+"Income - Sample Variance",399.461344537815
+"Income - sample standard deviation",19.9865290768011
+"Income - coefficient of variation",0.534063178726216
+"Income - mean absolute deviation",15.8701730103806
+"Income - Q1",21
+"Income - median",34
+"Income - Q3",48
+"Income - IQR",27
+"Education - Min",0
+"Education - Max",18
+"Education - Sample Mean",10.1764705882353
+"Education - Sample Variance",22.3375350140056
+"Education - sample standard deviation",4.72626015090215
+"Education - coefficient of variation",0.464430188238939
+"Education - mean absolute deviation",3.93910034602076
+"Education - Q1",6
+"Education - median",11
+"Education - Q3",13
+"Education - IQR",7
