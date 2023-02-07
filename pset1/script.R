@@ -267,9 +267,9 @@ barplot(
   data = aggregated_medicalexpn, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Average Medical Expenses by Country and Location", 
   ylab = "Average Medical Expenses",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -286,9 +286,9 @@ barplot(
   data = aggregated_medicalexpn, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Standard Deviation of Medical Expenses by Country and Location", 
   ylab = "Standard Deviation of Medical Expenses",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -325,9 +325,9 @@ barplot(
   data = aggregated_income, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Average Income by Country and Location", 
   ylab = "Average Income",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -344,9 +344,9 @@ barplot(
   data = aggregated_income, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Standard Deviation of Income by Country and Location", 
   ylab = "Standard Deviation of Income",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -372,7 +372,7 @@ aggregated_education = aggregate(
 
 write.csv(
   aggregated_education,
-  "exports/aggregated_data2_educatioon.csv",
+  "exports/aggregated_data2_education.csv",
   row.names = TRUE
 )
 
@@ -383,9 +383,9 @@ barplot(
   data = aggregated_education, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Average Education by Country and Location", 
   ylab = "Average Education",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -402,9 +402,9 @@ barplot(
   data = aggregated_education, 
   beside = T, 
   col = c("dodgerblue2", "firebrick2", "darkgoldenrod1"),
-  main = "", 
+  main = "Standard Deviation of Education by Country and Location", 
   ylab = "Standard Deviation of Education",
-  xlab = "Country"
+  xlab = "Location"
 )
 
 legend(
@@ -427,10 +427,15 @@ plot(
   ylab = "Medical Expenses"
 )
 
-# 2F - Calculate sample correlations between all numeric variables  and present them in a table. 
+# 2F - Calculate sample correlations between all numeric variablesand present them in a table. 
 
 correlation = cor(data2[,c(3, 4, 5)])
 
 correlation
 
+write.csv(
+  correlation,
+  "exports/data2_correlation.csv",
+  row.names = TRUE
+)
 
