@@ -8,11 +8,11 @@ rm(list = ls())
 
 # Relative directory
 # Put data to the data directory inside the project directory
-setwd("data")
+setwd(".")
 getwd()
 
 # Problem 1
-data1<- read_excel("pset1_data.xlsx", sheet="scores")
+data1<- read_excel("data/pset1_data.xlsx", sheet="scores")
 
 summary(data1)
 
@@ -24,7 +24,6 @@ data1_summary <- as.data.frame(
 )
 data1_summary
 data1_summary = rbind(
-  data1_summary,
   min(data1$score),
   max(data1$score),
   mean(data1$score),
@@ -37,9 +36,6 @@ data1_summary = rbind(
 
 # Provide Row names
 rownames(data1_summary) <- c(
-  "Length",
-  "Class",
-  "Mode",
   "Min",
   "Max",
   "Sample Mean",
@@ -50,17 +46,16 @@ rownames(data1_summary) <- c(
   "Interquartile Range (IQR)"
 )
 
-# Provide Column names
 colnames(data1_summary) <- c(
-  "Year",
-  "School",
-  "Score"
+  "Value"
 )
 
 # Report the table:
 data1_summary
 
-# 1A
+write.csv(data1_summary, "exports/data1_summary.csv", row.names = TRUE)
+
+# 1B
 boxplot(data1$score)
 
 # 1C
@@ -78,6 +73,9 @@ aggregated_data1 = aggregate(
 )
 
 aggregated_data1
+
+
+write.csv(aggregated_data1, "exports/aggregated_data1_by_school_and_year.csv", row.names = TRUE)
 
 # Bar Chart Draw
 # Sample Mean Chart
@@ -119,7 +117,7 @@ legend(
 )
 
 # Question 2
-data2<- read_excel("pset1_data.xlsx", sheet="medical_expenses");
+data2<- read_excel("data/pset1_data.xlsx", sheet="medical_expenses");
 
 # 2A
 summary(data2)
@@ -131,20 +129,18 @@ data2_summary <- as.data.frame(
 data2_summary
 
 data2_summary = rbind(
-  data2_summary,
-  
   # Medical Experience
-  min(data2$medicalexpn),
-  max(data2$medicalexpn),
-  mean(data2$medicalexpn),
-  var(data2$medicalexpn),
-  sd(data2$medicalexpn),
-  sd(data2$medicalexpn) / mean(data2$medicalexpn),
-  mean(abs(data2$medicalexpn - mean(data2$medicalexpn))),
-  quantile(data2$medicalexpn, 0.25),
-  quantile(data2$medicalexpn, 0.5),
-  quantile(data2$medicalexpn, 0.75),
-  IQR(data2$medicalexpn),
+  min(data2$medicalexpn), # Min
+  max(data2$medicalexpn), # Max
+  mean(data2$medicalexpn),# Mean
+  var(data2$medicalexpn), # Variance
+  sd(data2$medicalexpn), # Standard Deviation
+  sd(data2$medicalexpn) / mean(data2$medicalexpn), # Co. of Variation
+  mean(abs(data2$medicalexpn - mean(data2$medicalexpn))), # Mean abs. Deviation
+  quantile(data2$medicalexpn, 0.25), # 1st Quartile
+  quantile(data2$medicalexpn, 0.5), # Median
+  quantile(data2$medicalexpn, 0.75), # 3rd Quartile
+  IQR(data2$medicalexpn), # Interquartile Range
   
   # Income
   min(data2$income),
@@ -176,10 +172,6 @@ data2_summary = rbind(
 
 # Provide Row names
 rownames(data2_summary) <- c(
-  "Length",
-  "Class",
-  "Mode",
-  
   # Medical Experience
   "Medical Expenses - Min",
   "Medical Expenses - Max",
@@ -220,7 +212,11 @@ rownames(data2_summary) <- c(
   "Education - IQR"
 )
 
+colnames(data2_summary) <- c("Values")
+
 data2_summary
+
+write.csv(data2_summary, "exports/data2_summary.csv", row.names = TRUE)
 
 # 2B
 # Outliers not in the range [Q1 - 1.5 * IQR, Q3 + 1.5 * IQR]
@@ -256,6 +252,12 @@ aggregated_medicalexpn = aggregate(
     "Sample Mean" = mean(x), 
     "Sample SD" = sd(x)
   )
+)
+
+write.csv(
+  aggregated_medicalexpn,
+  "exports/aggregated_data2_medicalexpn.csv",
+  row.names = TRUE
 )
 
 # Bar Chart Draw
@@ -310,6 +312,12 @@ aggregated_income = aggregate(
   )
 )
 
+write.csv(
+  aggregated_income,
+  "exports/aggregated_data2_income.csv",
+  row.names = TRUE
+)
+
 # Bar Chart Draw
 # Sample Mean Chart
 barplot(
@@ -362,6 +370,12 @@ aggregated_education = aggregate(
   )
 )
 
+write.csv(
+  aggregated_education,
+  "exports/aggregated_data2_educatioon.csv",
+  row.names = TRUE
+)
+
 # Bar Chart Draw
 # Sample Mean Chart
 barplot(
@@ -404,12 +418,19 @@ legend(
 
 # 2E - Draw a scatter plot of medical expenses (on y-axis) and income (on x-axis).
 
-plot(medicalexpn ~ income,data = data2)
+plot(medicalexpn ~ income, data = data2)
 
 plot(
   data2$income, 
   data2$medicalexpn,
-  "Income",
-  "Medical Expertise"
+  xlab = "Income",
+  ylab = "Medical Expenses"
 )
+
+# 2F - Calculate sample correlations between all numeric variables  and present them in a table. 
+
+correlation = cor(data2[,c(3, 4, 5)])
+
+correlation
+
 
