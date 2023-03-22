@@ -107,13 +107,24 @@ t.test(score_2016, score_2014, conf.level = 0.95, alternative = "greater")
 
 t.test(lincoln_2014, kennedy_2014, conf.level = 0.95, alternative = "two.sided")
 # p-value= 0.03 < 5% => reject the null hypothesis that the scores of two
-# schools are different in 2014
-# => The scores of the two schools are not statistically different in 2014
+# schools are not different in 2014
+# => The scores of the two schools are statistically different in 2014
+
+t.test(lincoln_2014, kennedy_2014, conf.level = 0.95, alternative = "less")
+# p-value= 0.01 < 5% => reject the null hypothesis that the scores of two
+# schools are not different in 2014
+# => Kennedy has a higher score statistically than Lincoln in 2014 
 
 t.test(lincoln_2016, kennedy_2016, conf.level = 0.95, alternative = "two.sided")
 # p-value= 0.03 < 5% => reject the null hypothesis that the scores of two
 # schools are different in 2016
 # => The scores of the two schools are not statistically different in 2016
+
+t.test(lincoln_2016, kennedy_2016, conf.level = 0.95, alternative = "less")
+# p-value= 0.01 < 5% => reject the null hypothesis that the scores of two
+# schools are not different in 2016
+# => Kennedy has a higher score statistically than Lincoln in 2016 
+
 
 ## E: A score of 40 is considered as pass. Test the hypothesis that the 
 ## proportion of students who pass the exam is the same for both schools 
