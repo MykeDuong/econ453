@@ -6,12 +6,12 @@ knitr::opts_chunk$set(echo = TRUE)
 rm(list = ls()) # clear the workspace
 
 getwd()
-setwd("G:/chromeDownload/R453/PS3")
+setwd("./")
 
 library(readxl)
 library(car) # loads car library that does tests of linear restrictions 
 
-data1<- read_excel("pset3_data.xlsx")
+data1<- read_excel("./data/pset3_data.xlsx")
 summary(data1)
 str(data1)
 
