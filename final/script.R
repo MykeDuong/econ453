@@ -21,8 +21,8 @@ library(caret)
 data <- read.csv("./data/survey_results_public.csv")
 
 data$blockchainFavour = ifelse(
-  grepl("Very favorable", data$Blockchain, fixed = TRUE) |
-  grepl("Favorable", data$Blockchain, fixed = TRUE),
+  grepl("Very favorable", ignore.case = FALSE, data$Blockchain, fixed = TRUE) |
+  grepl("Favorable", ignore.case = FALSE, data$Blockchain, fixed = TRUE),
   1, 0
 )
 data$blockchainFavour = as.factor(data$blockchainFavour)
