@@ -22,7 +22,7 @@ data <- read.csv("./data/survey_results_public.csv")
 
 data$blockchainFavour = ifelse(
   grepl("Very favorable", ignore.case = FALSE, data$Blockchain, fixed = TRUE) |
-  grepl("Favorable", ignore.case = FALSE, data$Blockchain, fixed = TRUE),
+    grepl("Favorable", ignore.case = FALSE, data$Blockchain, fixed = TRUE),
   1, 0
 )
 data$blockchainFavour = as.factor(data$blockchainFavour)
@@ -59,7 +59,7 @@ data$BlockchainDev <- ifelse(grepl("Blockchain", data$DevType, fixed = TRUE), 1,
 
 data$SmallComp <- ifelse(
   grepl("2 to 9 employees", data$OrgSize, fixed = TRUE) |
-  grepl("20 to 99 employees", data$OrgSize, fixed = TRUE),
+    grepl("20 to 99 employees", data$OrgSize, fixed = TRUE),
   1, 0
 )
 
@@ -100,28 +100,28 @@ data$BlockchainHobby = data$SolidityWantTo * data$Hobby
 data$SmallCompWithBlockchain = data$SmallComp * data$WorkWithSolidity
 
 data = data[c("blockchainFavour", 
-              "NumOfTech",
-              #"NumOfLanguages", 
-              #"NumOfDatabases", 
-              #"NumOfPlatform",
+              #"NumOfTech",
+              "NumOfLanguages", 
+              "NumOfDatabases", 
+              "NumOfPlatform",
               "NumOfWebframe", 
-              #"NumOfMisc", 
-              #"WorkExp", 
+              "NumOfMisc", 
+              "WorkExp", 
               "ConvertedCompYearly",
               #"SqComp",
-              #"Aspiring",
-              #"BlockchainHobby",
-              #"EntrWithBlockchain",
-              "Young",
+              "Aspiring",
+              "BlockchainHobby",
+              "EntrWithBlockchain",
+              #"Young",
               "Retiring",
               "Senior",
               "Normal",
-              #"Middle",
+              "Middle",
               "SmallComp",
-              #"SmallCompWithBlockchain",
-              #"MediumComp",
+              "SmallCompWithBlockchain",
+              "MediumComp",
               "BackendExposure",
-              #"Hobby",
+              "Hobby",
               "StrictlyWork",
               "SolidityWantTo",
               "WorkWithSolidity",             
@@ -142,7 +142,7 @@ model <- train(blockchainFavour ~.,
 
 # print cv scores
 summary(model)
-  
+
 
 # accuracy from mod$results$Accuracy
 model.accuracy = max(model$results$Accuracy)
