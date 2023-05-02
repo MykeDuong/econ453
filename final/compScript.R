@@ -29,7 +29,7 @@ data <- read.csv("./data/survey_results_public.csv")
 
 data$USA <- ifelse(grepl("United States of America", data$Country, fixed = TRUE), 1,0)
 
-data$YearsCodePro <- ifelse(grepl("More than 50 years", data$YearsCodePro, fixed = TRUE), 50, data$YearsCodePro)
+data$YearsCodePro <- ifelse(grepl("More than 50 years", data$YearsCodePro, fixed = TRUE), 51, data$YearsCodePro)
 
 data$YearsCodePro <- ifelse(grepl("Less than 1 year", data$YearsCodePro, fixed = TRUE), 0, data$YearsCodePro)
 
@@ -60,7 +60,9 @@ data$Brazil <- ifelse(
 
 data$NumOfDevType <- count_item(data$DevType)
 
-data$VeryLargeComp <- ifelse( grepl("10,000 or more employees", data$OrgSize, fixed = TRUE), 1, 0)
+data$VeryLargeComp <- ifelse( 
+  grepl("5,000 to 9,999 employees", data$OrgSize, fixed = TRUE) |
+  grepl("10,000 or more employees", data$OrgSize, fixed = TRUE), 1, 0)
 
 data$Canada <- ifelse(
   grepl("Canada", data$Country, fixed = TRUE), 1, 0
@@ -129,9 +131,8 @@ train_control <- trainControl(method = "repeatedcv", number = 10)
 # train the model on training set
 model <- train(ConvertedCompYearly ~., 
                data = data,
-               #metric="Accuracy",
                trControl = train_control,
-               method = "xgbDART")
+               method = "lm")
 # print cv scores
 summary(model)
   
