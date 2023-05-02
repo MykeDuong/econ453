@@ -108,7 +108,7 @@ data = data[c("ConvertedCompYearly",
               "VerySmallComp",
               "FullInPerson",
               "MasterEdu",
-              "Britain",
+              #"Britain",
               "Brazil",
               "NumOfDevType",
               "VeryLargeComp",
@@ -135,6 +135,6 @@ model <- train(ConvertedCompYearly ~.,
                method = "lm")
 # print cv scores
 summary(model)
-  
 
-# accuracy from mod$results$Accuracy
+# Results with Errors
+model$results
