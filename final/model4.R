@@ -57,9 +57,10 @@ data$Retiring <- ifelse(grepl("45-54 years old", data$Age, fixed = TRUE), 1,0)
 data$Senior <- ifelse(grepl("55-64 years old", data$Age, fixed = TRUE), 1,0)
 data$BlockchainDev <- ifelse(grepl("Blockchain", data$DevType, fixed = TRUE), 1,0)
 
-data$SmallComp <- ifelse(
+data$NewComp <- ifelse(
   grepl("2 to 9 employees", data$OrgSize, fixed = TRUE) |
-    grepl("20 to 99 employees", data$OrgSize, fixed = TRUE),
+  grepl("10 to 19 employees", data$OrgSize, fixed = TRUE) | 
+  grepl("20 to 99 employees", data$OrgSize, fixed = TRUE),
   1, 0
 )
 
@@ -97,28 +98,17 @@ data$EntrWithBlockchain = data$Entr * data$SolidityWantTo
 
 data$BlockchainHobby = data$SolidityWantTo * data$Hobby
 
-data$SmallCompWithBlockchain = data$SmallComp * data$WorkWithSolidity
+data$NewCompWithBlockchain = data$NewComp * data$WorkWithSolidity
 
 data = data[c("blockchainFavour", 
-              #"NumOfTech",
-              "NumOfLanguages", 
-              "NumOfDatabases", 
-              "NumOfPlatform",
-              "NumOfWebframe", 
-              "NumOfMisc", 
-              "WorkExp", 
-              "ConvertedCompYearly",
-              #"SqComp",
               "Aspiring",
               "BlockchainHobby",
               "EntrWithBlockchain",
-              #"Young",
               "Retiring",
               "Senior",
               "Normal",
-              "Middle",
-              "SmallComp",
-              "SmallCompWithBlockchain",
+              "NewComp",
+              "NewCompWithBlockchain",
               "MediumComp",
               "BackendExposure",
               "Hobby",
@@ -137,8 +127,7 @@ model <- train(blockchainFavour ~.,
                data = data,
                #metric="Accuracy",
                trControl = train_control,
-               method = "glm",
-               family=binomial())
+               method = "nb")
 
 # print cv scores
 summary(model)
@@ -148,3 +137,5 @@ summary(model)
 model.accuracy = max(model$results$Accuracy)
 
 model.accuracy
+
+confusionMatrix(model)

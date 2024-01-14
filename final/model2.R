@@ -21,7 +21,7 @@ library(caret)
 count_item <- function(column) {
   ifelse(
     grepl("NA", column, fixed = TRUE), 
-    0,
+    NA,
     lengths(regmatches(column, gregexpr(";", column)))
   )
 }
@@ -39,8 +39,8 @@ data$India <- ifelse(grepl("India", data$Country, fixed = TRUE), 1,0)
 
 data$VerySmallComp <- ifelse( 
   grepl("2 to 9 employees", data$OrgSize, fixed = TRUE) | 
-  grepl("10 to 19 employees", data$OrgSize, fixed = TRUE) | 
-  grepl("Just me - I am a freelancer, sole proprietor, etc.", data$OrgSize, fixed = TRUE),
+    grepl("10 to 19 employees", data$OrgSize, fixed = TRUE) | 
+    grepl("Just me - I am a freelancer, sole proprietor, etc.", data$OrgSize, fixed = TRUE),
   1, 0
 )
 
@@ -48,7 +48,7 @@ data$FullInPerson <- ifelse( grepl("Fully remote", data$RemoteWork, fixed = TRUE
 
 data$MasterEdu <- ifelse(
   grepl("Master", data$EdLevel, fixed = TRUE)
-, 1, 0)
+  , 1, 0)
 
 data$Britain <- ifelse(
   grepl("Britain", data$Country, fixed = TRUE), 1, 0
@@ -62,7 +62,7 @@ data$NumOfDevType <- count_item(data$DevType)
 
 data$VeryLargeComp <- ifelse( 
   grepl("5,000 to 9,999 employees", data$OrgSize, fixed = TRUE) |
-  grepl("10,000 or more employees", data$OrgSize, fixed = TRUE), 1, 0)
+    grepl("10,000 or more employees", data$OrgSize, fixed = TRUE), 1, 0)
 
 data$Canada <- ifelse(
   grepl("Canada", data$Country, fixed = TRUE), 1, 0
@@ -97,25 +97,28 @@ data$Executive <- ifelse(
 
 data$ConvertedCompYearly <- ifelse(
   data$ConvertedCompYearly < 1000 |
-  data$ConvertedCompYearly > 500000,
+    data$ConvertedCompYearly > 500000,
   NA, data$ConvertedCompYearly
 )
+
+data$YearsSq = data$YearsCodePro ^ 2
 
 data = data[c("ConvertedCompYearly",
               "USA",
               "YearsCodePro",
+              "YearsSq",
               "India",
               "VerySmallComp",
               "FullInPerson",
               "MasterEdu",
-              #"Britain",
+              "Britain",
               "Brazil",
               "NumOfDevType",
               "VeryLargeComp",
               "Canada",
               "NumOfLanguages",
               "Germany",
-              "FullyRemote",
+              #"FullyRemote",
               "College",
               "SmallComp",
               "LargeComp",
@@ -125,6 +128,8 @@ data = data[c("ConvertedCompYearly",
 )]
 
 data = data[complete.cases(data), ]
+
+scatterplot(data$ConvertedCompYearly ~ data$NumOfLanguages, data = data)
 
 train_control <- trainControl(method = "repeatedcv", number = 10)
 
